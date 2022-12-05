@@ -18,7 +18,7 @@ final case class MyPleasureServer(
 
   /** Composes the routes together, returning a single HttpApp.
    */
-  val allRoutes: HttpApp[Any, Throwable] = userRoutes.routes ++ pleasureRoutes.routes
+  val allRoutes: HttpApp[Any, Throwable] = userRoutes.routes ++ pleasureRoutes.getRoutes ++ pleasureRoutes.createDeleteRoutes
 
   /** Resets the database to the initial state every 15 minutes to clean up the
    * deployed Heroku data. Then, it obtains a port from the environment on
