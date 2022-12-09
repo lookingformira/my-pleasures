@@ -71,8 +71,8 @@ final case class PleasureRoutes(service: PleasureService) {
     case Method.GET -> !! / "pleasures" / id =>
       for {
         id <- parsePleasureId(id)
-        pet <- service.get(id)
-      } yield Response.json(pet.toJson)
+        pleasure <- service.get(id)
+      } yield Response.json(pleasure.toJson)
 
     case Method.GET -> !! / "users" / id / "pleasures" =>
       for {

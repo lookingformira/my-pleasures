@@ -1,6 +1,7 @@
 import pleasure.server.PleasureRoutes
 import person.server.PersonRoutes
 import zhttp.http._
+import zhttp.http.middleware.Cors.CorsConfig
 import zhttp.service.Server
 import zio._
 
@@ -16,9 +17,16 @@ final case class MyPleasureServer(
                                    migrations: Migrations
                              ) {
 
+  val corsConfig = CorsConfig(
+    anyOrigin = false,
+    anyMethod = false,
+    allowedOrigins = s => s.equals("localhost"),
+    allowedMethods = Some(Set(Method.GET, Method.POST, Method.PATCH, Method.DELETE))
+  )
+
   /** Composes the routes together, returning a single HttpApp.
    */
-  val allRoutes: HttpApp[Any, Throwable] = userRoutes.routes ++ pleasureRoutes.getRoutes ++ pleasureRoutes.createDeleteRoutes
+  val allRoutes: HttpApp[Any, Throwable] = (userRoutes.routes ++ pleasureRoutes.getRoutes ++ pleasureRoutes.createDeleteRoutes) @@ Middleware.cors(corsConfig)
 
   /** Resets the database to the initial state every 15 minutes to clean up the
    * deployed Heroku data. Then, it obtains a port from the environment on
