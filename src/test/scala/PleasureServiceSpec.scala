@@ -24,7 +24,8 @@ object PleasureServiceSpec extends ZIOSpecDefault {
               "Elizabeth",
               "1 Birdwell Island, New York, NY",
               "212-215-1928",
-              "emily@bigreddog.com"
+              "emily@bigreddog.com",
+              "qwerty"
             )
             pleasure <-
               PleasureService.create("Keyboard", "https://geekboards.ru/product/varmilo-minilo", "varmilo keyboard", user.id)
@@ -38,10 +39,11 @@ object PleasureServiceSpec extends ZIOSpecDefault {
               "Arable",
               "Arable Farm, Brooklin, ME",
               "207-711-1899",
-              "fern@charlottesweb.com"
+              "fern@charlottesweb.com",
+              "qwerty"
             )
             user2 <-
-              PersonService.create("Sherlock", "Holmes", "221B Baker St, London, England, UK", "+44-20-7224-3688", "sherlock@sherlockholmes.com")
+              PersonService.create("Sherlock", "Holmes", "221B Baker St, London, England, UK", "+44-20-7224-3688", "sherlock@sherlockholmes.com", "qwerty")
             pleasure1 <-
               PleasureService.create("Car", "https://www.lamborghini.com/en-en/models/urus", "lamborghini urus", user1.id)
             pleasure2 <-
@@ -59,7 +61,8 @@ object PleasureServiceSpec extends ZIOSpecDefault {
                 "Holmes",
                 "221B Baker St, London, England, UK",
                 "+44-20-7224-3688",
-                "sherlock@sherlockholmes.com"
+                "sherlock@sherlockholmes.com",
+                "qwerty"
               )
             pleasure <-
               PleasureService.create("Cellphone", "https://www.apple.com/iphone-14-pro/", "iphone 14", user.id)
@@ -76,7 +79,8 @@ object PleasureServiceSpec extends ZIOSpecDefault {
               "Elizabeth",
               "1 Birdwell Island, New York, NY",
               "212-215-1928",
-              "emily@bigreddog.com"
+              "emily@bigreddog.com",
+              "qwerty"
             )
             pleasure <-
               PleasureService.create("Keyboard", "https://geekboards.ru/product/varmilo-minilo", "varmilo keyboard", user.id)

@@ -1,10 +1,8 @@
-import zio.Scope
-import zio.test.{Spec, TestEnvironment, ZIOSpecDefault}
-
 import io.github.scottweaver.zio.aspect.DbMigrationAspect
 import io.github.scottweaver.zio.testcontainers.postgres.ZPostgreSQLContainer
 import person.service._
 import pleasure.service._
+import zio.Scope
 import zio.test._
 
 object PersonServiceSpec extends ZIOSpecDefault {
@@ -19,7 +17,8 @@ object PersonServiceSpec extends ZIOSpecDefault {
                 "Elizabeth",
                 "1 Birdwell Island, New York, NY",
                 "212-215-1928",
-                "emily@bigreddog.com"
+                "emily@bigreddog.com",
+                "qwerty"
               )
             getPerson <- PersonService.get(person.id)
           } yield assertTrue(getPerson.get == person)
@@ -31,10 +30,11 @@ object PersonServiceSpec extends ZIOSpecDefault {
               "Arable",
               "Arable Farm, Brooklin, ME",
               "207-711-1899",
-              "fern@charlottesweb.com"
+              "fern@charlottesweb.com",
+              "qwerty"
             )
             person2 <-
-              PersonService.create("Jon", "Arbuckle", "711 Maple St, Muncie, IN", "812-728-1945", "jon@garfield.com")
+              PersonService.create("Jon", "Arbuckle", "711 Maple St, Muncie, IN", "812-728-1945", "jon@garfield.com", "qwerty")
             persons <- PersonService.getAll
           } yield assertTrue(persons.contains(person1) && persons.contains(person2))
         }
@@ -48,7 +48,8 @@ object PersonServiceSpec extends ZIOSpecDefault {
                 "Holmes",
                 "221B Baker St, London, England, UK",
                 "+44-20-7224-3688",
-                "sherlock@sherlockholmes.com"
+                "sherlock@sherlockholmes.com",
+                "qwerty"
               )
             _ <- PersonService.delete(person.id)
             getPerson <- PersonService.get(person.id)
@@ -62,12 +63,13 @@ object PersonServiceSpec extends ZIOSpecDefault {
                 "Hunter",
                 "Ontario, Canada",
                 "807-511-1918",
-                "elizabeth@incrediblejourney.com"
+                "elizabeth@incrediblejourney.com",
+                "qwerty"
               )
             person2 <-
-              PersonService.create("Peter", "Hunter", "Ontario, Canada", "807-511-1918", "peter@incrediblejourney.com")
+              PersonService.create("Peter", "Hunter", "Ontario, Canada", "807-511-1918", "peter@incrediblejourney.com", "qwerty")
             person3 <-
-              PersonService.create("Jim", "Hunter", "Ontario, Canada", "807-511-1918", "jim@incrediblejourney.com")
+              PersonService.create("Jim", "Hunter", "Ontario, Canada", "807-511-1918", "jim@incrediblejourney.com", "qwerty")
             _ <- PersonService.delete(person1.id)
             _ <- PersonService.delete(person2.id)
             getPerson1 <- PersonService.get(person1.id)
@@ -84,7 +86,8 @@ object PersonServiceSpec extends ZIOSpecDefault {
               "Potter",
               "4 Privet Drive, Little Whinging, Surrey, UK",
               "+44-20-7224-3688",
-              "harry@hogwarts.edu"
+              "harry@hogwarts.edu",
+              "qwerty"
             )
             _ <- PersonService.update(person.id, None, None, Some("12 Grimmauld Place, London, England, UK"), None, None)
             getPerson <- PersonService.get(person.id)

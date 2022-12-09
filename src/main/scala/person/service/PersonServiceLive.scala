@@ -11,9 +11,9 @@ final case class PersonServiceLive(dataSource: DataSource) extends PersonService
 
   /** Creates a new User
    */
-  override def create(firstName: String, lastName: String, address: String, phone: String, email: String): Task[Person] =
+  override def create(firstName: String, lastName: String, address: String, phone: String, email: String, password: String): Task[Person] =
     for {
-      user <- Person.make(firstName, lastName, address, phone, email)
+      user <- Person.make(firstName, lastName, address, phone, email, password)
       _ <- run(query[Person].insertValue(lift(user)))
         .provideEnvironment(ZEnvironment(dataSource))
     } yield user
@@ -43,7 +43,8 @@ final case class PersonServiceLive(dataSource: DataSource) extends PersonService
                       lastName: Option[String],
                       address: Option[String],
                       phone: Option[String],
-                      email: Option[String]): Task[Unit] = run(
+                      email: Option[String],
+                      password: Option[String]): Task[Unit] = run(
     dynamicQuery[Person]
       .filter(_.id == lift(id))
       .update(
@@ -51,7 +52,8 @@ final case class PersonServiceLive(dataSource: DataSource) extends PersonService
         setOpt(_.lastName, lastName),
         setOpt(_.address, address),
         setOpt(_.phone, phone),
-        setOpt(_.email, email)
+        setOpt(_.email, email),
+        setOpt(_.password, password)
       )
   )
     .provideEnvironment(ZEnvironment(dataSource)).unit

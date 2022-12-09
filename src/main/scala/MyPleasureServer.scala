@@ -36,7 +36,7 @@ final case class MyPleasureServer(
    */
   def start: ZIO[Any, Throwable, Unit] =
     for {
-      _    <- migrations.reset
+      _    <- migrations.migrate
 //        .repeat(Schedule.fixed(15.minutes)).fork
       port <- System.envOrElse("PORT", "8080").map(_.toInt)
       _    <- Server.start(port, allRoutes)

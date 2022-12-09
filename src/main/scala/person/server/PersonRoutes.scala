@@ -30,10 +30,10 @@ final case class PersonRoutes(service: PersonService) {
             createUser.lastName,
             createUser.address,
             createUser.phone,
-            createUser.email
+            createUser.email,
+            createUser.password
           )
       } yield Response.json(user.toJson)
-//        .setHeaders(Headers.apply(List(("Access-Control-Allow-Origin", "*"))))
 
     /** Updates a single User found by their parsed ID using the information
      * parsed from the UpdateUser request and returns a 200 status code
@@ -49,7 +49,8 @@ final case class PersonRoutes(service: PersonService) {
           updateUser.lastName,
           updateUser.address,
           updateUser.phone,
-          updateUser.email
+          updateUser.email,
+          updateUser.password
         )
       } yield Response.ok
 

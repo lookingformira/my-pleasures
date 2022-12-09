@@ -7,7 +7,7 @@ trait PersonService {
 
   /** Creates a new User
    */
-  def create(firstName: String, lastName: String, address: String, phone: String, email: String): Task[Person]
+  def create(firstName: String, lastName: String, address: String, phone: String, email: String, password: String): Task[Person]
 
   /** Deletes an existing User
    */
@@ -29,7 +29,8 @@ trait PersonService {
               lastName: Option[String] = None,
               address: Option[String] = None,
               phone: Option[String] = None,
-              email: Option[String] = None
+              email: Option[String] = None,
+              password: Option[String] = None
             ): Task[Unit]
 
 }
@@ -39,8 +40,9 @@ object PersonService {
              lastName: String,
              address: String,
              phone: String,
-             email: String): ZIO[PersonService, Throwable, Person] =
-    ZIO.serviceWithZIO[PersonService](_.create(firstName, lastName, address, phone, email))
+             email: String,
+             password: String): ZIO[PersonService, Throwable, Person] =
+    ZIO.serviceWithZIO[PersonService](_.create(firstName, lastName, address, phone, email, password))
 
   def delete(id: PersonId): ZIO[PersonService, Throwable, Unit] = ZIO.serviceWithZIO[PersonService](_.delete(id))
 
@@ -54,7 +56,8 @@ object PersonService {
               lastName: Option[String] = None,
               address: Option[String] = None,
               phone: Option[String] = None,
-              email: Option[String] = None
+              email: Option[String] = None,
+              password: Option[String] = None
             ): ZIO[PersonService, Throwable, Unit] =
-    ZIO.serviceWithZIO[PersonService](_.update(id, firstName, lastName, address, phone, email))
+    ZIO.serviceWithZIO[PersonService](_.update(id, firstName, lastName, address, phone, email, password))
 }
