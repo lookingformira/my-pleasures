@@ -20,8 +20,8 @@ final case class MyPleasureServer(
   val corsConfig = CorsConfig(
     anyOrigin = false,
     anyMethod = false,
-    allowedOrigins = s => s.equals("localhost"),
-    allowedMethods = Some(Set(Method.GET, Method.POST, Method.PATCH, Method.DELETE))
+    allowedOrigins = s => s.equals("http://localhost:3000"),
+    allowedMethods = Some(Set(Method.GET, Method.POST, Method.PATCH, Method.DELETE)),
   )
 
   /** Composes the routes together, returning a single HttpApp.
@@ -36,7 +36,7 @@ final case class MyPleasureServer(
    */
   def start: ZIO[Any, Throwable, Unit] =
     for {
-      _    <- migrations.reset
+      _    <- migrations.migrate
 //        .repeat(Schedule.fixed(15.minutes)).fork
       port <- System.envOrElse("PORT", "8080").map(_.toInt)
       _    <- Server.start(port, allRoutes)

@@ -10,7 +10,8 @@ final case class UpdatePerson(firstName: Option[String],
                               lastName: Option[String],
                               address: Option[String],
                               phone: Option[String],
-                              email: Option[String])
+                              email: Option[String],
+                              password: Option[String])
 
 object UpdatePerson {
   implicit val codec: JsonCodec[UpdatePerson] =

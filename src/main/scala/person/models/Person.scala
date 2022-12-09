@@ -8,7 +8,8 @@ final case class Person(id: PersonId,
                         lastName: String,
                         address: String,
                         phone: String,
-                        email: String) {
+                        email: String,
+                        password: String) {
   def fullName: String = firstName + " " + lastName
 }
 
@@ -17,8 +18,8 @@ object Person {
   /** Uses the `random` method defined on our UserId wrapper to generate a
    * random ID and assign that to the User we are creating.
    */
-  def make(firstName: String, lastName: String, address: String, phone: String, email: String): UIO[Person] =
-    PersonId.random.map(Person(_, firstName, lastName, address, phone, email))
+  def make(firstName: String, lastName: String, address: String, phone: String, email: String, password: String): UIO[Person] =
+    PersonId.random.map(Person(_, firstName, lastName, address, phone, email, password))
 
   /** Derives a JSON codec for the User type allowing it to be (de)serialized.
    */
